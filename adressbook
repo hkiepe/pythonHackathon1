@@ -1,0 +1,56 @@
+adresslist = [
+['Henrik', 'Kiepe', 'hkiepe@inkontor.com'],
+['Julia', 'Klein', 'julia@gmail.com'],
+['Rafal', 'Kowalski', 'kowalski@wp.pl']
+]
+
+def print_menu():
+    print("++++++++++++++ Menu ++++++++++++++")
+    print("1 - Show Adressbook")
+    print("2 - New Adress")
+    print("3 - Delete Adress")
+    print("4 - Quit")
+    selected = input("What do you want to do?")
+    return selected
+
+def print_adresslist(adresslist):
+    i = 0
+    print("ID Forename Surename Mail")
+    for x in adresslist:
+        print(i, ' ', end="")
+        for y in x:
+            print(y, end=" ")
+        print()
+        i = i + 1
+    print()
+
+def input_new_adress():
+    print("please add a new adress")
+    forename = input("please add a forename")
+    surename = input("please add a surename")
+    mail = input("please add a mail")
+    new_adress = [forename, surename, mail]
+    return new_adress
+
+def drop_adressline(adresslist):
+    print_adresslist(adresslist)
+    line = input("select the adressline you want to delete?")
+    del (adresslist[int(line)])
+
+selected_menu = 'empty'
+while selected_menu != '4':
+    selected_menu = print_menu()
+    if selected_menu == '1':
+        print_adresslist(adresslist)
+    elif selected_menu == '2':
+        adresslist.append(input_new_adress())
+    elif selected_menu == '3':
+        drop_adressline(adresslist)
+    elif selected_menu == '4':
+        print('Program quit!')
+    else:
+        print('no such menu entry: ' + selected_menu)
+
+
+
+
