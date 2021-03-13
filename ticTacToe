@@ -1,0 +1,92 @@
+playfield = [
+['.', '.', '.'],
+['.', '.', '.'],
+['.', '.', '.']
+]
+
+def print_playfield(playfield):
+    for line in playfield:
+        for row in line:
+            print(row, end=" ")
+        print()
+
+def make_a_turn(player, playfield):
+    print("Player " + player + " its your turn!")
+    print("Please enter the postion of your character")
+    line = input("Enter Line:")
+    row = input("Enter Row:")
+    if line == 'A':
+        line = 0
+    elif line == 'B':
+        line = 1
+    elif line == 'C':
+        line = 2
+    else:
+        print('no such line: ' + line)
+    if row == '1':
+        row = 0
+    elif row == '2':
+        row = 1
+    elif row == '3':
+        row = 2
+    else:
+        print('no such row: ' + row)
+    if check_if_field_is_set(line, row, playfield) != False:
+        return [line, row]
+    else:
+        return False
+
+def check_if_field_is_set(line, row, playfield):
+    if playfield[line][row] == 'X' or playfield[line][row] == 'O':
+        return False
+    else:
+        return True
+
+def check_winner(playfield, player):
+    if playfield[0][0] and playfield[0][1] and playfield[0][2] == player:
+        return [True, player]
+    elif playfield[1][0] and playfield[1][1] and playfield[1][2] == player:
+        return [True, player]
+    elif playfield[2][0] and playfield[2][1] and playfield[2][2] == player:
+        return [True, player]
+    elif playfield[0][0] and playfield[1][0] and playfield[2][0] == player:
+        return [True, player]
+    elif playfield[0][1] and playfield[1][1] and playfield[2][1] == player:
+        return [True, player]
+    elif playfield[0][2] and playfield[1][2] and playfield[2][2] == player:
+        return [True, player]
+    elif playfield[0][0] and playfield[1][1] and playfield[2][2] == player:
+        return [True, player]
+    elif playfield[2][0] and playfield[1][1] and playfield[0][2] == player:
+        return [True, player]
+    else:
+        return [False, player]
+
+player = 'X'
+while quit != 'q':
+    print_playfield(playfield)
+    if player == 'X' and quit != 'q':
+        position = make_a_turn(player, playfield)
+        if position != False:
+            playfield[position[0]][position[1]] = player
+            if check_winner(playfield, player)[0] == True:
+                quit = 'q'
+                print('Payer ' + check_winner(playfield, player)[1] + ' wins')
+                print_playfield(playfield)
+            else:
+                player = 'O'
+        else:
+            print("It seems the field is already set. Try again!")
+            player = 'X'
+    elif player == 'O' and quit != 'q':
+        position = make_a_turn(player, playfield)
+        if position != False:
+            playfield[position[0]][position[1]] = player
+            if check_winner(playfield, player)[0] == True:
+                quit = 'q'
+                print('Payer ' + check_winner(playfield, player)[1] + ' wins')
+                print_playfield(playfield)
+            player = 'X'
+        else:
+            print("It seems the field is already set. Try again!")
+            player = 'O'
